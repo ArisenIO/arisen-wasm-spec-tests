@@ -1,4 +1,4 @@
-#include <eosio/eosio.hpp>
+#include <arisen/arisen.hpp>
 
 extern "C" {
    int32_t _size() {
@@ -11,32 +11,32 @@ extern "C" {
 
    void sub_apply_0() {
       int32_t x1 = _size();
-      eosio::check(x1 == (int32_t)1, "_size fail 1");
+      arisen::check(x1 == (int32_t)1, "_size fail 1");
 
       _grow((int32_t)3);
 
       int32_t x3 = _size();
-      eosio::check(x3 == (int32_t)1, "_size fail 3");
+      arisen::check(x3 == (int32_t)1, "_size fail 3");
 
       _grow((int32_t)1);
 
       int32_t x5 = _size();
-      eosio::check(x5 == (int32_t)2, "_size fail 5");
+      arisen::check(x5 == (int32_t)2, "_size fail 5");
 
       _grow((int32_t)0);
 
       int32_t x7 = _size();
-      eosio::check(x7 == (int32_t)2, "_size fail 7");
+      arisen::check(x7 == (int32_t)2, "_size fail 7");
 
       _grow((int32_t)4);
 
       int32_t x9 = _size();
-      eosio::check(x9 == (int32_t)2, "_size fail 9");
+      arisen::check(x9 == (int32_t)2, "_size fail 9");
 
       _grow((int32_t)1);
 
       int32_t x11 = _size();
-      eosio::check(x11 == (int32_t)3, "_size fail 11");
+      arisen::check(x11 == (int32_t)3, "_size fail 11");
 
    }
    void apply(uint64_t, uint64_t, uint64_t test_to_run) {

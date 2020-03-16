@@ -8,10 +8,10 @@ import subprocess
 import sys
 import tempfile
 
-from compile_eosio_tests import CompileError
+from compile_arisen_tests import CompileError
 
-import compile_eosio_tests
-import generate_eosio_tests
+import compile_arisen_tests
+import generate_arisen_tests
 
 WASM_DIR = ''
 TEST_DIR = ''
@@ -110,14 +110,14 @@ def compile_wasm():
     # Otherwise, we can just do serially.
     if len(fs) > 5:
         with Pool(os.cpu_count() - 2) as p:
-            p.map(compile_eosio, fs_m)
+            p.map(compile_arisen, fs_m)
     else:
         for d in fs_m:
-            compile_eosio(d)
+            compile_arisen(d)
 
-def compile_eosio(f):
+def compile_arisen(f):
     d, name = f
-    compile_eosio_tests.main(
+    compile_arisen_tests.main(
         d,
         f'{name}.{d}.wasm.cpp',
         f'{name}.{d}-int.wasm',
@@ -141,10 +141,10 @@ def generate_wasm_and_copy():
             o_wast_file = os.path.join(d, f'{name}.{d}.wast')
             map_file = os.path.join(d, f'{name}.{d}.wasm.map')
             try:
-                generate_eosio_tests.main(g_wasm_file, t_wasm_file, o_wast_file, map_file)
+                generate_arisen_tests.main(g_wasm_file, t_wasm_file, o_wast_file, map_file)
                 wasm_file_path = os.path.join(d, wasm_file)
                 out = subprocess.run(
-                    ['eosio-wast2wasm', o_wast_file, '-o', os.path.join(d, wasm_file)],
+                    ['arisen-wast2wasm', o_wast_file, '-o', os.path.join(d, wasm_file)],
                     capture_output=True
                 )
 
@@ -176,7 +176,7 @@ if __name__ == '__main__':
                 (optional) Arg 3: Directory for intermediate test files <defaults to a temp directory>
 
                 ex:
-                python setup_eosio_tests.py ~/code/eos-vm-test-wasms ~/code/eos ~/wasm_spec_tests
+                python setup_arisen_tests.py ~/code/rsn-vm-test-wasms ~/code/rsn ~/wasm_spec_tests
               """)
         sys.exit(1)
 
@@ -197,6 +197,6 @@ if __name__ == '__main__':
     GENERATOR_DIR = os.path.join(REPO_ROOT, 'build', 'generator')
     ALTERED_WASMS_DIR = os.path.join(REPO_ROOT, 'generator', 'altered-wasms')
 
-    generator = os.path.join(GENERATOR_DIR, 'eosio_test_generator')
+    generator = os.path.join(GENERATOR_DIR, 'arisen_test_generator')
 
     main()

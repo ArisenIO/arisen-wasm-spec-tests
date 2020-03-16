@@ -14,9 +14,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/wasm_spec_tests.hpp.in ${CMAKE_CURREN
 file(GLOB WASM_TESTS "*.cpp") # find all unit test suites
 add_executable( wasm_spec_test ${WASM_TESTS}) # build unit tests as one executable
 
-target_link_libraries( wasm_spec_test eosio_chain chainbase eosio_testing fc appbase ${PLATFORM_SPECIFIC_LIBS} )
+target_link_libraries( wasm_spec_test arisen_chain chainbase arisen_testing fc appbase ${PLATFORM_SPECIFIC_LIBS} )
 
-target_compile_options(wasm_spec_test PUBLIC -DDISABLE_EOSLIB_SERIALIZE)
+target_compile_options(wasm_spec_test PUBLIC -DDISABLE_RSNLIB_SERIALIZE)
 target_include_directories( wasm_spec_test PUBLIC
                             ${CMAKE_SOURCE_DIR}/libraries/testing/include
                             ${CMAKE_CURRENT_BINARY_DIR}/include )
@@ -27,7 +27,7 @@ foreach(TEST_SUITE ${WASM_TESTS}) # create an independent target for each test s
   if (NOT "" STREQUAL "${SUITE_NAME}") # ignore empty lines
     string(REPLACE "\n" ";" SN_LIST ${SUITE_NAME})
     foreach(SN ${SN_LIST})
-      foreach(RUNTIME ${EOSIO_WASM_RUNTIMES})
+      foreach(RUNTIME ${ARISEN_WASM_RUNTIMES})
           add_test(NAME ${SN}_unit_test_${RUNTIME} COMMAND wasm_spec_test --run_test=${SN} --report_level=detailed --color_output --catch_system_errors=no -- --${RUNTIME})
           set_property(TEST ${SN}_unit_test_${RUNTIME} PROPERTY LABELS wasm_spec_tests)
           # build list of tests to run during coverage testing

@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "eosio_test_generator.hpp"
+#include "arisen_test_generator.hpp"
 
 using namespace std;
 
@@ -105,7 +105,7 @@ void write_tests(vector<spec_test> tests) {
       bool has_assert_return_tests = t.assert_return_start_index < t.assert_return_end_index;
 
       string name = convert_to_valid_cpp_identifier(t.name);
-      test_ss << "const string wasm_str_" << name << " = base_dir + \"/eosio-wasm-spec-tests/generated-tests/wasms/" << t.name
+      test_ss << "const string wasm_str_" << name << " = base_dir + \"/arisen-wasm-spec-tests/generated-tests/wasms/" << t.name
               << ".wasm\";\n";
       test_ss << "std::vector<uint8_t> wasm_" << name << "= read_wasm(wasm_str_" << name << ".c_str());\n\n";
 

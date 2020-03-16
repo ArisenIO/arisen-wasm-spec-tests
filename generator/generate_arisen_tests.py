@@ -8,11 +8,11 @@ from generated_wasm import GeneratedWASM
 from regexes import DATA_REGEX, EXPORT_REGEX, FUNC_REGEX
 from test_wasm import TestWASM
 
-from compile_eosio_tests import CompileError
+from compile_arisen_tests import CompileError
 
 def main(generated_wasm_file, test_wasm_file, out_wasm_file, map_file):
     def read_wasm_file(wasm_file):
-        out = subprocess.run(['eosio-wasm2wast', wasm_file], capture_output=True)
+        out = subprocess.run(['arisen-wasm2wast', wasm_file], capture_output=True)
         generated_wast_string = out.stdout.decode('utf-8')
         if generated_wast_string:
             return generated_wast_string
